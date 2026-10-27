@@ -1,8 +1,12 @@
 #pragma once
+#include "Weapon.h"
+#include "Armor.h"
+
+
 class Player {
 
-public:
 
+private:
     int life = 20;
     int  maxlife = 100;
     int speed = 15;
@@ -15,14 +19,21 @@ public:
 
     // Inventory
 
+	Weapon weapon;
+	Armor armor;
+
+public :
 
     void DisplayPlayerStats();
 
     void TakeDamage(int damage);
+	void Heal(int heal);
+	void Attack(Player& target);
 
     bool IsAlive();
 
-
-
+	// Getters and Setters
+	int GetLife();
+	void SetLife(int value);
 
 };

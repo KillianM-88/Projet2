@@ -1,4 +1,6 @@
 #include "Player.h"
+#include "Weapon.h"
+#include "Armor.h"
 #include <iostream>
 
 void Player::DisplayPlayerStats() {
@@ -15,15 +17,46 @@ void Player::DisplayPlayerStats() {
 
 void Player::TakeDamage(int damage) {
 
-    life -= damage;
+	int finalAttack = damage - defense;
 
-    if (life < 0) {
-        life = 0;
-    }
+	if (finalAttack < 0) {
+		finalAttack = 0;
+	}
+    
+	SetLife(GetLife() - finalAttack);
+}
 
+void Player::Heal(int heal) {
+
+	SetLife(GetLife() + heal);
+}
+
+void Player::Attack(Player& target) {
+
+	int finalAttack = attack + weapon.GetAttack();
+
+	if (finalAttack < 0) {
+		finalAttack = 0;
+	}
+	target.TakeDamage(finalAttack);
 }
 
 bool Player::IsAlive() {
 
     return life > 0;
+}
+
+int Player::GetLife() {
+	return life;
+}
+
+void Player::SetLife(int value) {
+	life = value;
+
+	if (life < 0) {
+		life = 0;
+	}
+	if (life > maxlife) {
+		life = maxlife;
+	}
 }
